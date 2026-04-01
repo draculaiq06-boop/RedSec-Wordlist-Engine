@@ -14,6 +14,12 @@ Advanced wordlist generator for security testing & learning purposes.
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/USERNAME/dracula-wordlist-engine.git
-cd dracula-wordlist-engine
+git clone https://github.com/draculaiq06-boop/RedSec-Wordlist-Engine.git
+cd RedSec-Wordlist-Engine
 pip install -r requirements.txt
+
+## ⚙️  how to use
+
+python3 RedSec.py
+chmod +x main.py
+./main.py
