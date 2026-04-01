@@ -1,0 +1,253 @@
+#!/usr/bin/env python3
+import random
+import os
+import time
+from colorama import Fore, Style
+
+# ===== CONFIG =====
+SPECIAL = ["@", "#", ".", "_", "-", "!", "$", "%", "&", "*", "?", "~", "=", "+", "^", "(", ")", "/"]
+COMMON_SUFFIX = ["123", "1234", "2024", "2023"]
+
+# ===== ASCII =====
+BANNER = r"""
+Fuck Society            ;::::;                  REDSEC.drac
+                      ;::::; :;                 dreamtime sweetie
+                    ;:::::'   :;                PassGen 0.3
+                   ;:::::;     ;.
+                  ,:::::'       ;        OOO\        I hate you,
+                  ::::::;       ;       OOOOO\       You hate me,
+                  ;:::::;       ;      OOOOOOOO     WElc0M3 T0 Th3
+                 ,;::::::;     ;'      / OOOOOOO     Family S0on...
+               ;:::::::::`. ,,,;.     /  / DOOOOOO
+             .';:::::::::::::::::;,  /  /     DOOOO
+            ,::::::;::::::;;;;::::;,/  /        DOOO   REDSEC CREW
+           ;`::::::`'::::::;;;:::::#/  /          DOOO
+           :`:::::::`;::::::;;::: ;:# /            DOOO
+           ::`:::::::`;:::::::: ;:::#/              DOO
+           `:`:::::::`;:::::: ;:::::#               DOO   Silent hacker
+            :::`:::::::`;; ;:::::::::##              OO    404 not found
+            ::::`:::::::`;::::::::;:::#              OO
+            `:::::`::::::::::::;'`:;::#              O
+             `:::::`::::::::;' /  / `:#
+
+   ██████╗ ██████╗  █████╗  ██████╗██╗   ██╗██╗      █████╗
+   ██╔══██╗██╔══██╗██╔══██╗██╔════╝██║   ██║██║     ██╔══██╗
+   ██║  ██║██████╔╝███████║██║     ██║   ██║██║     ███████║
+   ██║  ██║██╔══██╗██╔══██║██║     ██║   ██║██║     ██╔══██║
+   ██████╔╝██║  ██║██║  ██║╚██████╗╚██████╔╝███████╗██║  ██║
+   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+
+            💀 DRACULA WORDLIST ENGINE 💀
+"""
+
+# ===== ANIMATION =====
+def boot_animation():
+    def hacker_intro():
+     os.system("clear")
+
+
+
+    time.sleep(0.5)
+    os.system("clear")
+    for i in range(30):
+        bar = "█" * i + "-" * (30 - i)
+        print(Fore.RED + f"\r[{bar}] {i*3}%", end="")
+        time.sleep(0.03)
+    print(Fore.GREEN + "\nREADY ✔" + Style.RESET_ALL)
+    time.sleep(0.5)
+
+
+    intro = [
+        "Initializing DRACULA engine...",
+        "Loading red team modules...",
+        "Injecting human patterns...",
+        "Bypassing AI detection...",
+        "Access granted..."
+    ]
+
+    for line in intro:
+        for c in line:
+            print(Fore.RED + c + Style.RESET_ALL, end="", flush=True)
+            time.sleep(0.02)
+        print()
+        time.sleep(0.3)
+    
+
+def show_banner():
+    os.system("clear")
+    print(Fore.RED + BANNER + Style.RESET_ALL)
+
+# ===== INPUT =====
+def get_social_target():
+    print("\n🧠 SOCIAL TARGET:\n")
+    data = {}
+    data["first"] = input("First name: ")
+    data["last"] = input("Last name: ")
+    data["nick"] = input("Nickname: ")
+    data["username"] = input("Username: ")
+    data["year"] = input("Birth year: ")
+    data["phone"] = input("Phone: ")
+    data["partner"] = input("Partner: ")
+    data["best_friend"] = input("Best friend: ")
+    data["car"] = input("Car: ")
+    data["motorcycle"] = input("Motorcycle: ")
+    data["team"] = input("Team: ")
+    data["company"] = input("Company: ")
+    
+    
+
+    nums = input("Extra numbers (1,2,3): ")
+    data["nums"] = [n.strip() for n in nums.split(",") if n.strip().isdigit()]
+
+    return data
+
+def get_wifi_target():
+    print("\n📡 WIFI TARGET:\n")
+    data = {}
+    data["base"] = input("Base word: ")
+    data["location"] = input("Location: ")
+    data["ssid"] = input("WiFi name: ")
+    data["isp"] = input("ISP: ")
+    data["phone"] = input("Phone: ")
+    data["year"] = input("Year: ")
+
+    nums = input("Extra numbers: ")
+    data["nums"] = [n.strip() for n in nums.split(",") if n.strip().isdigit()]
+    return data
+
+# ===== SOCIAL PASS =====
+def social_pass(base, data):
+    nums = data.get("nums") or ["123"]
+
+    base_variants = [
+        base + data.get("year", ""),
+        base + random.choice(nums),
+        base + random.choice(COMMON_SUFFIX),
+    ]
+
+    results = []
+
+    for p in base_variants:
+        for s in SPECIAL:
+          results.append(p + s)  # ✅ غير رمز واحد  
+
+        # optional variation (rare)
+        if random.random() > 0.85:
+            results.append(p + random.choice(SPECIAL))
+
+    if data.get("phone") and len(data["phone"]) >= 4:
+        results.append(base + data["phone"][-4:])
+
+    return random.choice(results)
+
+# ===== WIFI PASS =====
+def wifi_pass(base, data):
+    nums = data.get("nums") or ["123"]
+    results = []
+
+    for n in nums:
+        results.append(base + n)
+        results.append(base + n + random.choice(SPECIAL))
+
+    if data.get("ssid"):
+        results.append(data["ssid"] + random.choice(nums))
+
+    if data.get("isp"):
+        results.append(data["isp"] + random.choice(COMMON_SUFFIX))
+
+    if data.get("phone") and len(data["phone"]) >= 8:
+        results.append(data["phone"][-8:])
+
+    # strong wifi
+    results.append(base + str(random.randint(10000000, 99999999)))
+
+    return random.choice(results)
+
+# ===== GENERATE =====
+def generate(data, total, mode):
+    words = set()
+
+    base_words = [v for v in data.values() if isinstance(v, str) and len(v) > 1]
+
+    if not base_words:
+        print("❌ No data!")
+        return []
+
+    tries = 0
+    max_tries = total * 20
+
+    while len(words) < total and tries < max_tries:
+        base = random.choice(base_words)
+
+        if mode == "social":
+            word = social_pass(base, data)
+        else:
+            word = wifi_pass(base, data)
+
+        # 🔥 FIX: ما بقاش كيضيف أرقام زايدة
+        if random.random() > 0.5:
+            word = word.capitalize()
+
+        words.add(word)
+        tries += 1
+
+        if len(words) % 500 == 0:
+            print(Fore.RED + f"\rGenerating {len(words)}/{total}", end="")
+        word = word.replace("!!", "!").replace("@@", "@").replace("##", "#")
+
+    print()
+    return list(words)
+
+# ===== SAVE =====
+def save_file(words):
+    name = input("Filename: ") or "pass.txt"
+    with open(name, "w") as f:
+        for w in words:
+            f.write(w + "\n")
+    print(Fore.GREEN + f"Saved {len(words)} passwords" + Style.RESET_ALL)
+
+# ===== MENU =====
+def menu():
+    print(Fore.RED + """
+╔══════════════════════════════╗
+║   DRACULA WORDLIST ENGINE    ║
+╠══════════════════════════════╣
+║ 1 ▶ SOCIAL PASSWORDS         ║
+║ 2 ▶ WIFI PASSWORDS           ║
+║ 3 ▶ EXIT                     ║
+╚══════════════════════════════╝
+""" + Style.RESET_ALL)
+
+# ===== MAIN =====
+def main():
+    boot_animation()
+
+    while True:
+        show_banner()
+        menu()
+
+        choice = input("Choose: ")
+
+        if choice == "1":
+            data = get_social_target()
+            total = int(input("How many (max 100000): ") or 1000)
+            total = min(total, 100000)
+
+            words = generate(data, total, "social")
+            save_file(words)
+
+        elif choice == "2":
+            data = get_wifi_target()
+            total = int(input("How many (max 100000): ") or 1000)
+            total = min(total, 100000)
+
+            words = generate(data, total, "wifi")
+            save_file(words)
+
+        elif choice == "3":
+            break
+
+        input("\nEnter to continue...")
+
+if __name__ == "__main__":
+    main()
