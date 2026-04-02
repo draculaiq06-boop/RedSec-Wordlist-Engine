@@ -37,7 +37,7 @@ Fuck Society            ;::::;                  REDSEC.drac
    ██████╔╝██║  ██║██║  ██║╚██████╗╚██████╔╝███████╗██║  ██║
    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
 
-            💀 DRACULA WORDLIST ENGINE 💀
+            DRACULA WORDLIST ENGINE 
 """
 
 # ===== ANIMATION =====
@@ -79,7 +79,7 @@ def show_banner():
 
 # ===== INPUT =====
 def get_social_target():
-    print("\n🧠 SOCIAL TARGET:\n")
+    print("\n SOCIAL TARGET:\n")
     data = {}
     data["first"] = input("First name: ")
     data["last"] = input("Last name: ")
@@ -102,7 +102,7 @@ def get_social_target():
     return data
 
 def get_wifi_target():
-    print("\n📡 WIFI TARGET:\n")
+    print("\n WIFI TARGET:\n")
     data = {}
     data["base"] = input("Base word: ")
     data["location"] = input("Location: ")
@@ -129,7 +129,7 @@ def social_pass(base, data):
 
     for p in base_variants:
         for s in SPECIAL:
-          results.append(p + s)  # ✅ غير رمز واحد  
+          results.append(p + s)   
 
         # optional variation (rare)
         if random.random() > 0.85:
@@ -170,7 +170,7 @@ def generate(data, total, mode):
     base_words = [v for v in data.values() if isinstance(v, str) and len(v) > 1]
 
     if not base_words:
-        print("❌ No data!")
+        print(" No data!")
         return []
 
     tries = 0
@@ -184,7 +184,7 @@ def generate(data, total, mode):
         else:
             word = wifi_pass(base, data)
 
-        # 🔥 FIX: ما بقاش كيضيف أرقام زايدة
+        
         if random.random() > 0.5:
             word = word.capitalize()
 
